@@ -98,7 +98,10 @@ if [ -x /usr/bin/yum ]; then
 fi
 
 if [ -x /usr/bin/zypper ]; then
-    zypper install zabbix-agent -i
+
+    zypper addrepo https://download.opensuse.org/repositories/home:pclo:monitoring/openSUSE_Leap_$(cat /etc/os-release | grep VERSION= | awk -F "\"" '{print $2}')/home:pclo:monitoring.repo
+    zypper refresh
+    zypper install zabbix-agent -y
     sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$hostnameo/$hostnamen/" /etc/zabbix/zabbix_agentd.conf
