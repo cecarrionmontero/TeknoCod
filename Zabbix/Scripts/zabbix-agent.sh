@@ -1,13 +1,14 @@
 #!/bin/bash
 
 #VAR
+var001=$1
 ipaddr=$( ip addr | grep 'inet ' | awk '{print $2}' | awk 'BEGIN {RS=""}{gsub(/\n/," ",$0); print $0}' | awk -F ' ' '{print $2}' | awk -F '/' '{print $1}' )
 hostnamen="Hostname=$ipaddr"
 hostnameo=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "Hostname=" )
 zso=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "Server=" )
 zsao=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "ServerActive=" )
-zsn="Server=192.168.20.208"
-zsan="ServerActive=192.168.20.208"
+zsn="Server="$var001
+zsan="ServerActive="$var001
 timeouto=$( cat /etc/zabbix/zabbix_agentd.conf | grep "Timeout=" )
 timeoutn="Timeout=30"
 isw="\n########################################\nInstalando sudo + wget\n\n"
