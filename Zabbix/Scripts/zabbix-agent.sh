@@ -96,3 +96,13 @@ if [ -x /usr/bin/yum ]; then
     chkconfig zabbix-agent on
     service zabbix-agent restart
 fi
+
+if [ -x /usr/bin/zypper ]; then
+    zypper install zabbix-agent
+    sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix_agentd.conf
+    sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix_agentd.conf
+    sed -i "s/$hostnameo/$hostnamen/" /etc/zabbix/zabbix_agentd.conf
+    service zabbix-agent start
+    chkconfig zabbix-agent on
+    service zabbix-agent restart
+fi
