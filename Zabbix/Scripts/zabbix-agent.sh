@@ -30,30 +30,35 @@ if [ -x /usr/bin/apt-get ]; then
             sudo wget https://repo.zabbix.com/zabbix/5.4/debian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian10_all.deb
             echo $iza
             sudo dpkg -i /tmp/zabbix-release_5.4-1+debian10_all.deb
+            apt install zabbix-agent
         elif [ $( cat /etc/os-release | grep "_ID" | awk -F '"' '{print $2}' ) ==  "9" ]; then
             echo $isw && apt install sudo wget -y && echo $dza
             cd /tmp
             sudo wget https://repo.zabbix.com/zabbix/5.4/debian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian9_all.deb
             echo $iza
             sudo dpkg -i /tmp/zabbix-release_5.4-1+debian9_all.deb
+            apt install zabbix-agent
         elif [ $( cat /etc/os-release | grep "_ID" | awk -F '"' '{print $2}' ) ==  "8" ]; then
             echo $isw && apt install sudo wget -y && echo $dza
             cd /tmp
             sudo wget https://repo.zabbix.com/zabbix/5.4/debian/pool/main/z/zabbix-release/zabbix-release_5.4-1+debian8_all.deb
             echo $iza
             sudo dpkg -i /tmp/zabbix-release_5.4-1+debian8_all.deb
+            apt install zabbix-agent
         elif [ $( cat /etc/issue | grep Debian | awk -F ' ' '{print $3}' ) ==  "7.0" ]; then
             echo $isw && apt install sudo wget -y && echo $dza
             cd /tmp
             sudo wget  https://repo.zabbix.com/zabbix/2.0/debian/pool/main/z/zabbix-release/zabbix-release_2.0-1wheezy_all.deb
             echo $iza
             sudo dpkg -i /tmp/zabbix-release_2.0-1wheezy_all.deb
+            apt install zabbix-agent
         elif [ $( cat /etc/issue | grep Debian | awk -F ' ' '{print $3}' ) ==  "6.0" ]; then
             echo $isw && apt install sudo wget -y && echo $dza
             cd /tmp
             sudo wget  https://repo.zabbix.com/zabbix/2.0/debian/pool/main/z/zabbix-release/zabbix-release_2.0-1squeeze_all.deb
             echo $iza
             sudo dpkg -i /tmp/zabbix-release_2.0-1squeeze_all.deb
+            apt install zabbix-agent
         elif [ $( cat /etc/issue | grep Debian | awk -F ' ' '{print $3}' ) ==  "5.0" ]; then
             echo "version obsoleta"
         fi
