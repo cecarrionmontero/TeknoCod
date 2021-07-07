@@ -74,8 +74,12 @@ fi
 # Only run it if we can (ie. on RHEL/CentOS)
 if [ -x /usr/bin/yum ]; then
     rpm -Uvh https://repo.zabbix.com/zabbix/5.4/rhel/$(rpm -E %{rhel})/x86_64/zabbix-release-5.4-1.el$(rpm -E %{rhel}).noarch.rpm
-    sudo systemctl start zabbix-agent
-    sudo systemctl enable zabbix-agent
+    yum clean all
+    yum install zabbix-agent
+    #sudo systemctl start zabbix-agent
+    #sudo systemctl enable zabbix-agent
+    service zabbix-agent start
+    chkconfig zabbix-agent on
     sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$hostnameo/$hostnamen/" /etc/zabbix/zabbix_agentd.conf
