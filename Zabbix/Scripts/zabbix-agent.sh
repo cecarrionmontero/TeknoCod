@@ -98,7 +98,7 @@ if [ -x /usr/bin/yum ]; then
 fi
 
 if [ -x /usr/bin/zypper ]; then
-    zypper install zabbix-agent
+    zypper install zabbix-agent -i
     sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$hostnameo/$hostnamen/" /etc/zabbix/zabbix_agentd.conf
