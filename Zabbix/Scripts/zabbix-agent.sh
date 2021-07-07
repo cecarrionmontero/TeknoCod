@@ -85,6 +85,7 @@ fi
 if [ -x /usr/bin/yum ]; then
     rpm -Uvh https://repo.zabbix.com/zabbix/5.4/rhel/$(rpm -E %{rhel})/x86_64/zabbix-release-5.4-1.el$(rpm -E %{rhel}).noarch.rpm
     yum clean all
+    rm -rf /var/cache/yum
     yum install zabbix-agent -y --skip-broken
     #sudo systemctl start zabbix-agent
     #sudo systemctl enable zabbix-agent
