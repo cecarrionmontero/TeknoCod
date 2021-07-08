@@ -122,9 +122,9 @@ if [ -x /usr/bin/zypper ]; then
     timeouto=$( cat /etc/zabbix/zabbix-agentd.conf | grep "Timeout=" )
     timeoutn="Timeout=30"
 
-    sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix_agentd.conf
-    sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix_agentd.conf
-    sed -i "s/$hostnameo/$hostnamen/" /etc/zabbix/zabbix_agentd.conf
+    sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix-agentd.conf
+    sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix-agentd.conf
+    sed -i "s/$hostnameo/$hostnamen/" /etc/zabbix/zabbix-agentd.conf
     #service zabbix-agent start
     #chkconfig zabbix-agent on
     #service zabbix-agent restart
