@@ -85,7 +85,15 @@ fi
 
 # Only run it if we can (ie. on RHEL/CentOS)
 if [ -x /usr/bin/yum ]; then
+
     yum install curl
+    
+    if [ $( cat /etc/issue | grep CentOS | awk -F " " '{print $3}' | awk -F "." '{print $1}' ) ==  "5" ]; then
+        rpm -Uvh https://repo.zabbix.com/zabbix/5.4/rhel/5/x86_64/zabbix-release-5.4-1.el5.noarch.rpm
+    elif [ $( cat /etc/issue | grep CentOS | awk -F " " '{print $3}' | awk -F "." '{print $1}' ) ==  "6" ]; then
+        rpm -Uvh  https://repo.zabbix.com/zabbix/5.4/rhel/6/x86_64/zabbix-release-5.4-1.el6.noarch.rpm
+    fi
+   
     rpm -Uvh https://repo.zabbix.com/zabbix/5.4/rhel/$(rpm -E %{rhel})/x86_64/zabbix-release-5.4-1.el$(rpm -E %{rhel}).noarch.rpm
     yum clean all
     #rm -rf /var/cache/yum
