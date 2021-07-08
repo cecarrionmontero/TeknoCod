@@ -4,13 +4,7 @@
 var001=$1
 ipaddr=$( ip addr | grep 'inet ' | awk '{print $2}' | awk 'BEGIN {RS=""}{gsub(/\n/," ",$0); print $0}' | awk -F ' ' '{print $2}' | awk -F '/' '{print $1}' )
 hostnamen="Hostname=$ipaddr"
-hostnameo=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "Hostname=" )
-zso=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "Server=" )
-zsao=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "ServerActive=" )
-zsn="Server="$var001
-zsan="ServerActive="$var001
-timeouto=$( cat /etc/zabbix/zabbix_agentd.conf | grep "Timeout=" )
-timeoutn="Timeout=30"
+
 isw="\n########################################\nInstalando sudo + wget\n\n"
 dza="\n########################################\nDescargando zabbix-agent\n\n"
 iza="\n########################################\nInstalando zabbix-agent\n\n"
@@ -70,6 +64,14 @@ if [ -x /usr/bin/apt-get ]; then
     #    sudo dpkg -i zabbix-release_5.0-1+$(lsb_release -sc)_all.deb
     #fi
 
+    hostnameo=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "Hostname=" )
+    zso=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "Server=" )
+    zsao=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "ServerActive=" )
+    zsn="Server="$var001
+    zsan="ServerActive="$var001
+    timeouto=$( cat /etc/zabbix/zabbix_agentd.conf | grep "Timeout=" )
+    timeoutn="Timeout=30"
+
     sudo systemctl enable zabbix-agent
     sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix_agentd.conf
@@ -89,6 +91,15 @@ if [ -x /usr/bin/yum ]; then
     yum install zabbix-agent -y --skip-broken
     #sudo systemctl start zabbix-agent
     #sudo systemctl enable zabbix-agent
+
+    hostnameo=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "Hostname=" )
+    zso=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "Server=" )
+    zsao=$( cat /etc/zabbix/zabbix_agentd.conf | grep -v "#" |grep "ServerActive=" )
+    zsn="Server="$var001
+    zsan="ServerActive="$var001
+    timeouto=$( cat /etc/zabbix/zabbix_agentd.conf | grep "Timeout=" )
+    timeoutn="Timeout=30"
+
     sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$hostnameo/$hostnamen/" /etc/zabbix/zabbix_agentd.conf
@@ -101,11 +112,23 @@ if [ -x /usr/bin/zypper ]; then
 
     zypper addrepo https://download.opensuse.org/repositories/home:pclo:monitoring/openSUSE_Leap_$(cat /etc/os-release | grep VERSION= | awk -F "\"" '{print $2}')/home:pclo:monitoring.repo
     zypper refresh
-    zypper install zabbix-agent -y
+    zypper install -y zabbix-agent 
+
+    hostnameo=$( cat /etc/zabbix/zabbix-agentd.conf | grep -v "#" |grep "Hostname=" )
+    zso=$( cat /etc/zabbix/zabbix-agentd.conf | grep -v "#" |grep "Server=" )
+    zsao=$( cat /etc/zabbix/zabbix-agentd.conf | grep -v "#" |grep "ServerActive=" )
+    zsn="Server="$var001
+    zsan="ServerActive="$var001
+    timeouto=$( cat /etc/zabbix/zabbix-agentd.conf | grep "Timeout=" )
+    timeoutn="Timeout=30"
+
     sed -i "s/$zso/$zsn/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$zsao/$zsan/" /etc/zabbix/zabbix_agentd.conf
     sed -i "s/$hostnameo/$hostnamen/" /etc/zabbix/zabbix_agentd.conf
-    service zabbix-agent start
-    chkconfig zabbix-agent on
-    service zabbix-agent restart
+    #service zabbix-agent start
+    #chkconfig zabbix-agent on
+    #service zabbix-agent restart
+    rczabbix-agentd start
+    chkconfig zabbix-agentd on
+    rczabbix-agentd restart
 fi
