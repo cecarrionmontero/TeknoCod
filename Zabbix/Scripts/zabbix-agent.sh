@@ -85,6 +85,7 @@ fi
 
 # Only run it if we can (ie. on RHEL/CentOS)
 if [ -x /usr/bin/yum ]; then
+    yum install curl
     rpm -Uvh https://repo.zabbix.com/zabbix/5.4/rhel/$(rpm -E %{rhel})/x86_64/zabbix-release-5.4-1.el$(rpm -E %{rhel}).noarch.rpm
     yum clean all
     #rm -rf /var/cache/yum
